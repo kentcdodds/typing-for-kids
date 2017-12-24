@@ -117,8 +117,12 @@ class App extends React.Component {
           <h1>🎉 Congratulations! 🎊</h1>
           <div>You're done!</div>
           <div>
-            <button autoFocus={!inCodeSandbox} onClick={this.reset}>
-              Start again
+            <button
+              autoFocus={!inCodeSandbox}
+              onClick={this.reset}
+              style={{fontSize: 20}}
+            >
+              🔁 Start again
             </button>
           </div>
           <Fireworks />
@@ -197,7 +201,9 @@ class App extends React.Component {
             />
           </div>
         </div>
-        <button onClick={this.reset}>Start Over</button>
+        <button onClick={this.reset} style={{fontSize: 20}}>
+          🔁 Start Over
+        </button>
       </div>
     )
   }

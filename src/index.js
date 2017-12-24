@@ -2,22 +2,68 @@ import React from 'react'
 import {render} from 'react-dom'
 import 'animate.css'
 import Fireworks from './fireworks'
+import registerServiceWorker from './register-service-worker'
 
-const inCondSandbox = true
+registerServiceWorker()
+
+// don't autofocus in codesandbox
+const inCodeSandbox = location.href.includes('codesandbox.io')
+
+const getWords = () =>
+  shuffle([
+    // always have these words
+    'becca',
+    'nathan',
+    'adam',
+    'michael',
+    'mom',
+    'dad',
+    'dodds',
+    'love',
+    'family',
+    ...shuffle(
+      // have only some these words at random
+      [
+        'cat',
+        'hat',
+        'bat',
+        'truck',
+        'horse',
+        'kindness',
+        'nice',
+        'friend',
+        'dog',
+        'happy',
+        'sad',
+        'glad',
+        'seal',
+        'good',
+        'fast',
+        'slow',
+        'rabbit',
+        'turtle',
+        'snake',
+        'shark',
+        'cow',
+      ],
+    ).slice(0, 8),
+  ])
 
 class App extends React.Component {
-  static words = ['cat', 'becca', 'dodds', 'truck', 'horse', 'love', 'kindness']
-  initialState = {
-    todo: App.words.slice(1),
-    currentWord: App.words[0],
-    completed: [],
-    inputValue: '',
-    animateFinished: false,
-    animateNope: false,
+  getInitialState() {
+    const words = getWords()
+    return {
+      todo: words.slice(1),
+      currentWord: words[0],
+      completed: [],
+      inputValue: '',
+      animateFinished: false,
+      animateNope: false,
+    }
   }
-  state = this.initialState
+  state = this.getInitialState()
   handleInputChange = e => {
-    const fullValue = `${this.state.inputValue}${e.target.value}`
+    const fullValue = `${this.state.inputValue}${e.target.value.toLowerCase()}`
     if (this.state.inputValue === this.state.currentWord) {
       // ignore... We're animating
     } else if (this.state.currentWord.startsWith(fullValue)) {
@@ -33,7 +79,7 @@ class App extends React.Component {
     this.setState({animateNope: true})
   }
   advanceIfMatches = () => {
-    if (this.state.inputValue === this.state.currentWord) {
+    if (this.state.inputValue.toLowerCase() === this.state.currentWord) {
       const {completed, todo, currentWord} = this.state
       this.advanceWord({
         completed: [...completed, currentWord],
@@ -53,7 +99,7 @@ class App extends React.Component {
     })
   }
   reset = () => {
-    this.setState(this.initialState)
+    this.setState(this.getInitialState())
     this.input && this.input.focus()
   }
   render() {
@@ -71,7 +117,7 @@ class App extends React.Component {
           <h1>🎉 Congratulations! 🎊</h1>
           <div>You're done!</div>
           <div>
-            <button autoFocus={!inCondSandbox} onClick={this.reset}>
+            <button autoFocus={!inCodeSandbox} onClick={this.reset}>
               Start again
             </button>
           </div>
@@ -81,7 +127,7 @@ class App extends React.Component {
     }
     return (
       <div style={{textAlign: 'center', fontSize: 30}}>
-        <h1>Typing for Becca</h1>
+        <h1>Typing for Kids</h1>
         <div>Let's get typing!</div>
         <div>Try typing the word:</div>
         <div
@@ -138,7 +184,7 @@ class App extends React.Component {
             </h2>
             <input
               value={''}
-              autoFocus={!inCondSandbox}
+              autoFocus={!inCodeSandbox}
               ref={i => (this.input = i)}
               onChange={this.handleInputChange}
               style={{
@@ -251,4 +297,25 @@ class Animated extends React.Component {
     )
   }
 }
+
+function shuffle(array) {
+  let currentIndex = array.length
+  let temporaryValue
+  let randomIndex
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex]
+    array[currentIndex] = array[randomIndex]
+    array[randomIndex] = temporaryValue
+  }
+
+  return array
+}
+
 render(<App />, document.getElementById('root'))

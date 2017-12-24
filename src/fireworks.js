@@ -40,15 +40,13 @@ class Fireworks extends React.Component {
     setTimeout(function() {
       setFullscreen()
 
-      for (var i = 0; i < 40; i = i + 1) {
-        ;(function(i) {
-          setTimeout(function() {
-            createParticle({
-              x: width / 2 - 150 + i / 40 * 300,
-              degree: randMinMax(225, 135),
-            })
-          }, i * 20)
-        })(i)
+      for (let i = 0; i < 40; i = i + 1) {
+        setTimeout(function() {
+          createParticle({
+            x: width / 2 - 150 + i / 40 * 300,
+            degree: randMinMax(225, 135),
+          })
+        }, i * 20)
       }
 
       loop()

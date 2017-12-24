@@ -47,7 +47,7 @@ const getWords = () =>
         'cow',
       ],
     ).slice(0, 8),
-  ])
+  ]).slice(0, 1)
 
 class App extends React.Component {
   getInitialState() {
@@ -103,18 +103,19 @@ class App extends React.Component {
     this.input && this.input.focus()
   }
   render() {
-    const {
-      todo,
-      currentWord,
-      completed,
-      inputValue,
-      animateFinished,
-      animateNope,
-    } = this.state
+    const {currentWord, inputValue, animateFinished, animateNope} = this.state
     if (!currentWord) {
       return (
         <div style={{textAlign: 'center'}}>
-          <h1>🎉 Congratulations! 🎊</h1>
+          <h1>
+            <span role="img" aria-label="tada">
+              🎉
+            </span>{' '}
+            Congratulations!{' '}
+            <span role="img" aria-label="confetti">
+              🎊
+            </span>
+          </h1>
           <div>You're done!</div>
           <div>
             <button
@@ -122,7 +123,10 @@ class App extends React.Component {
               onClick={this.reset}
               style={{fontSize: 20}}
             >
-              🔁 Start again
+              <span role="img" aria-label="repeat">
+                🔁
+              </span>{' '}
+              Start again
             </button>
           </div>
           <Fireworks />
@@ -202,7 +206,10 @@ class App extends React.Component {
           </div>
         </div>
         <button onClick={this.reset} style={{fontSize: 20}}>
-          🔁 Start Over
+          <span role="img" aria-label="repeat">
+            🔁
+          </span>{' '}
+          Start Over
         </button>
       </div>
     )

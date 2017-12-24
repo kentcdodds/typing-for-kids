@@ -47,7 +47,7 @@ const getWords = () =>
         'cow',
       ],
     ).slice(0, 8),
-  ]).slice(0, 1)
+  ])
 
 class App extends React.Component {
   getInitialState() {

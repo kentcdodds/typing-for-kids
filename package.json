@@ -8,13 +8,13 @@
     "react": "16.2.0"
   },
   "devDependencies": {
-    "react-scripts": "1.0.0"
+    "react-scripts": "1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && now build"
+    "deploy": "npm run build && now --static build -n typing-for-my-kid"
   }
 }

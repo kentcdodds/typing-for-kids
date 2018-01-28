@@ -109,7 +109,7 @@ class App extends React.Component {
     }
     return (
       <div style={{textAlign: 'center', fontSize: 30}}>
-        <h1>Typing for Kids</h1>
+        <h1>Typing for My Kid</h1>
         <div>Let's get typing!</div>
         <div>Try typing the word:</div>
         <div

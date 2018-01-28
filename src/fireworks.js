@@ -41,6 +41,7 @@ class Fireworks extends React.Component {
       setFullscreen()
 
       for (let i = 0; i < 40; i = i + 1) {
+        // eslint-disable-next-line
         setTimeout(function() {
           createParticle({
             x: width / 2 - 150 + i / 40 * 300,

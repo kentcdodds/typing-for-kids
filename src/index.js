@@ -161,8 +161,8 @@ class App extends React.Component {
               }
               style={{marginLeft: 10}}
             >
-              <span style={{color: 'blue'}}>{inputValue}</span>
-              {currentWord.slice(inputValue.length)}
+              <span style={{color: 'blue', textTransform: 'uppercase'}}>{inputValue}</span>
+              <span style={{textTransform: 'uppercase'}}>{currentWord.slice(inputValue.length)}</span>
             </Animated>
           </h2>
           <div
@@ -173,12 +173,12 @@ class App extends React.Component {
             }}
             onClick={() => this.input.focus()}
           >
-            <h2 style={{display: 'inline-block', margin: 0}}>
+            <h2 style={{display: 'inline-block', margin: 0, textTransform: 'uppercase'}}>
               {animateFinished ? (
                 <Animated
                   onRest={this.handleAnimateFinishedRest}
                   animation={getRandomOutAnimation()}
-                  style={{display: 'inline-block'}}
+                  style={{display: 'inline-block', textTransform: 'uppercase'}}
                 >
                   {inputValue}
                 </Animated>

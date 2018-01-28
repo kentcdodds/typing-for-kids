@@ -3,6 +3,7 @@ import {render} from 'react-dom'
 import 'animate.css'
 import Fireworks from './fireworks'
 import registerServiceWorker from './register-service-worker'
+import {family, misc, colors} from './dictionary'
 
 registerServiceWorker()
 
@@ -12,39 +13,12 @@ const inCodeSandbox = location.href.includes('codesandbox.io')
 const getWords = () =>
   shuffle([
     // always have these words
-    'becca',
-    'nathan',
-    'adam',
-    'michael',
-    'mom',
-    'dad',
-    'dodds',
-    'love',
-    'family',
+    ...family,
     ...shuffle(
       // have only some these words at random
       [
-        'cat',
-        'hat',
-        'bat',
-        'truck',
-        'horse',
-        'kindness',
-        'nice',
-        'friend',
-        'dog',
-        'happy',
-        'sad',
-        'glad',
-        'seal',
-        'good',
-        'fast',
-        'slow',
-        'rabbit',
-        'turtle',
-        'snake',
-        'shark',
-        'cow',
+        ...misc,
+        ...colors
       ],
     ).slice(0, 8),
   ])

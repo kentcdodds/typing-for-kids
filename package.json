@@ -1,7 +1,7 @@
 {
   "name": "typing-for-kids",
   "description": "A simple app I made for my kids",
-  "version": "0.0.50",
+  "version": "0.0.51e",
   "dependencies": {
     "animate.css": "3.5.2",
     "react-dom": "16.2.0",

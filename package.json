@@ -1,6 +1,6 @@
 {
-  "name": "typing-for-kids",
-  "description": "A simple app I made for my kids",
+  "name": "typing-for-my-kid",
+  "description": "A simple app I forked for my kid",
   "version": "0.0.51e",
   "dependencies": {
     "animate.css": "3.5.2",
@@ -14,6 +14,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && now build"
   }
 }

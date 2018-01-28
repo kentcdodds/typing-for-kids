@@ -1,3 +1,5 @@
 # Typing for kids
 
-A little app I made for my kids for Christmas :)
+A little app Kent C. Dodds made for his kids for Christmas :)
+
+I then updated it for my kid because... well, open source awesomeness, that's why :-D

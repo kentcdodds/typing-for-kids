@@ -84,6 +84,8 @@ class App extends React.Component {
   render() {
     const {currentWord, inputValue, animateFinished, animateNope} = this.state
     if (!currentWord) {
+      const msg = new SpeechSynthesisUtterance('congratulations!');
+      window.speechSynthesis.speak(msg);
       return (
         <div style={{textAlign: 'center'}}>
           <h1>

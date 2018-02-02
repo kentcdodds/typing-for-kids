@@ -55,6 +55,7 @@ class App extends React.Component {
   advanceIfMatches = () => {
     if (this.state.inputValue.toLowerCase() === this.state.currentWord) {
       const {completed, todo, currentWord} = this.state
+      this.speakWordSuccess(this.state.currentWord)
       this.advanceWord({
         completed: [...completed, currentWord],
         currentWord: todo[0],
@@ -62,6 +63,10 @@ class App extends React.Component {
         inputValue: '',
       })
     }
+  }
+  speakWordSuccess = (word) => {
+    const msg = new SpeechSynthesisUtterance(word);
+    window.speechSynthesis.speak(msg);
   }
   advanceWord(stateToSet) {
     this.handleAnimateFinishedRest = () => {

@@ -1,14 +1,14 @@
-import React from 'react'
-import {render} from 'react-dom'
-import 'animate.css'
-import Fireworks from './fireworks'
-import registerServiceWorker from './register-service-worker'
-import {family, misc, colors} from './dictionary'
+import React from 'react';
+import { render } from 'react-dom';
+import 'animate.css';
+import Fireworks from './fireworks';
+import registerServiceWorker from './register-service-worker';
+import { family, misc, colors } from './dictionary';
 
-registerServiceWorker()
+registerServiceWorker();
 
 // don't autofocus in codesandbox
-const inCodeSandbox = location.href.includes('codesandbox.io')
+const inCodeSandbox = location.href.includes('codesandbox.io');
 
 const getWords = () =>
   shuffle([
@@ -16,79 +16,82 @@ const getWords = () =>
     ...family,
     ...shuffle(
       // have only some these words at random
-      [
-        ...misc,
-        ...colors
-      ],
-    ).slice(0, 8),
-  ])
+      [...misc, ...colors]
+    ).slice(0, 8)
+  ]);
 
 class App extends React.Component {
   getInitialState() {
-    const words = getWords()
+    const words = getWords();
     return {
       todo: words.slice(1),
       currentWord: words[0],
       completed: [],
       inputValue: '',
       animateFinished: false,
-      animateNope: false,
-    }
+      animateNope: false
+    };
   }
-  state = this.getInitialState()
+  state = this.getInitialState();
   handleInputChange = e => {
-    const fullValue = `${this.state.inputValue}${e.target.value.toLowerCase()}`
+    const fullValue = `${this.state.inputValue}${e.target.value.toLowerCase()}`;
     if (this.state.inputValue === this.state.currentWord) {
       // ignore... We're animating
     } else if (this.state.currentWord.startsWith(fullValue)) {
-      this.setState({inputValue: fullValue})
+      this.speakWord(fullValue.slice(-1));
+      this.setState({ inputValue: fullValue });
     } else {
-      this.nope()
+      this.nope();
     }
-  }
+  };
   nope() {
     this.handleAnimateNopeRest = () => {
-      this.setState({animateNope: false})
-    }
-    this.setState({animateNope: true})
+      this.setState({ animateNope: false });
+    };
+    this.setState({ animateNope: true });
   }
   advanceIfMatches = () => {
     if (this.state.inputValue.toLowerCase() === this.state.currentWord) {
-      const {completed, todo, currentWord} = this.state
-      this.speakWord(this.state.currentWord)
+      const { completed, todo, currentWord } = this.state;
+      this.speakWord(this.state.currentWord);
       this.advanceWord({
         completed: [...completed, currentWord],
         currentWord: todo[0],
         todo: todo.slice(1),
-        inputValue: '',
-      })
+        inputValue: ''
+      });
     }
-  }
-  speakWord = (word) => {
-    if( 'speechSynthesis' in window ){
+  };
+  speakWord = word => {
+    if ('speechSynthesis' in window) {
       const msg = new SpeechSynthesisUtterance(word);
       window.speechSynthesis.speak(msg);
     }
-  }
+  };
   advanceWord(stateToSet) {
     this.handleAnimateFinishedRest = () => {
-      this.setState({...stateToSet, animateFinished: false})
-      this.input && this.input.focus()
-    }
+      this.setState({ ...stateToSet, animateFinished: false });
+      this.input && this.input.focus();
+    };
     this.setState({
-      animateFinished: true,
-    })
+      animateFinished: true
+    });
   }
   reset = () => {
-    this.setState(this.getInitialState())
-    this.input && this.input.focus()
-  }
+    this.setState(this.getInitialState());
+    this.input && this.input.focus();
+  };
   render() {
-    const {currentWord, inputValue, animateFinished, animateNope} = this.state
+    const {
+      currentWord,
+      inputValue,
+      animateFinished,
+      animateNope
+    } = this.state;
     if (!currentWord) {
       this.speakWord('congratulations!');
       return (
-        <div style={{textAlign: 'center'}}>
+        <div style={{ textAlign: 'center' }}>
           <h1>
             <span role="img" aria-label="tada">
               🎉
@@ -103,7 +106,7 @@ class App extends React.Component {
             <button
               autoFocus={!inCodeSandbox}
               onClick={this.reset}
-              style={{fontSize: 20}}
+              style={{ fontSize: 20 }}
             >
               <span role="img" aria-label="repeat">
                 🔁
@@ -113,10 +116,10 @@ class App extends React.Component {
           </div>
           <Fireworks />
         </div>
-      )
+      );
     }
     return (
-      <div style={{textAlign: 'center', fontSize: 30}}>
+      <div style={{ textAlign: 'center', fontSize: 30 }}>
         <h1>Typing for My Kid</h1>
         <div>Let's get typing!</div>
         <div>Try typing the word:</div>
@@ -126,41 +129,50 @@ class App extends React.Component {
             marginLeft: 'auto',
             marginRight: 'auto',
             marginBottom: 20,
-            textAlign: 'left',
+            textAlign: 'left'
           }}
         >
           <h2>
             <Animated
               onRest={this.handleAnimateNopeRest}
               animation={
-                animateNope ? (
-                  'headShake'
-                ) : animateFinished ? (
-                  getRandomOutAnimation()
-                ) : (
-                  ''
-                )
+                animateNope
+                  ? 'headShake'
+                  : animateFinished ? getRandomOutAnimation() : ''
               }
-              style={{marginLeft: 10}}
+              style={{ marginLeft: 10 }}
             >
-              <span style={{color: 'blue', textTransform: 'uppercase'}}>{inputValue}</span>
-              <span style={{textTransform: 'uppercase'}}>{currentWord.slice(inputValue.length)}</span>
+              <span style={{ color: 'blue', textTransform: 'uppercase' }}>
+                {inputValue}
+              </span>
+              <span style={{ textTransform: 'uppercase' }}>
+                {currentWord.slice(inputValue.length)}
+              </span>
             </Animated>
           </h2>
           <div
             style={{
               border: '1px solid',
               padding: 10,
-              display: 'flex',
+              display: 'flex'
             }}
             onClick={() => this.input.focus()}
           >
-            <h2 style={{display: 'inline-block', margin: 0, textTransform: 'uppercase'}}>
+            <h2
+              style={{
+                display: 'inline-block',
+                margin: 0,
+                textTransform: 'uppercase'
+              }}
+            >
               {animateFinished ? (
                 <Animated
                   onRest={this.handleAnimateFinishedRest}
                   animation={getRandomOutAnimation()}
-                  style={{display: 'inline-block', textTransform: 'uppercase'}}
+                  style={{
+                    display: 'inline-block',
+                    textTransform: 'uppercase'
+                  }}
                 >
                   {inputValue}
                 </Animated>
@@ -182,32 +194,32 @@ class App extends React.Component {
                 width: '100%',
                 border: 'none',
                 fontSize: '1.5em',
-                outline: 'none',
+                outline: 'none'
               }}
             />
           </div>
         </div>
-        <button onClick={this.reset} style={{fontSize: 20}}>
+        <button onClick={this.reset} style={{ fontSize: 20 }}>
           <span role="img" aria-label="repeat">
             🔁
           </span>{' '}
           Start Over
         </button>
       </div>
-    )
+    );
   }
 }
 
 class InputChar extends React.Component {
-  animation = getRandomInAnimation()
+  animation = getRandomInAnimation();
   render() {
     return (
       <Animated
-        style={{display: 'inline-block'}}
+        style={{ display: 'inline-block' }}
         animation={this.animation}
         {...this.props}
       />
-    )
+    );
   }
 }
 
@@ -241,9 +253,9 @@ function getRandomOutAnimation() {
     'zoomOutDown',
     'zoomOutLeft',
     'zoomOutRight',
-    'zoomOutUp',
-  ]
-  return outAnimations[Math.floor(Math.random() * outAnimations.length)]
+    'zoomOutUp'
+  ];
+  return outAnimations[Math.floor(Math.random() * outAnimations.length)];
 }
 
 function getRandomInAnimation() {
@@ -267,52 +279,52 @@ function getRandomInAnimation() {
     'slideInLeft',
     'slideInRight',
     'slideInUp',
-    'zoomIn',
-  ]
-  return inAnimations[Math.floor(Math.random() * inAnimations.length)]
+    'zoomIn'
+  ];
+  return inAnimations[Math.floor(Math.random() * inAnimations.length)];
 }
 
 class Animated extends React.Component {
   static defaultProps = {
-    onRest: () => {},
-  }
+    onRest: () => {}
+  };
   componentDidMount() {
     this.div.addEventListener('animationend', () => {
-      this.props.onRest()
-    })
+      this.props.onRest();
+    });
   }
   render() {
-    const {onRest, animation, ...rest} = this.props
+    const { onRest, animation, ...rest } = this.props;
     return (
       <div
         className={`animated ${animation}`}
         ref={div => (this.div = div)}
         {...rest}
       />
-    )
+    );
   }
 }
 
 function shuffle(array) {
-  let currentIndex = array.length
-  let temporaryValue
-  let randomIndex
+  let currentIndex = array.length;
+  let temporaryValue;
+  let randomIndex;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
     // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex)
-    currentIndex -= 1
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
 
     // And swap it with the current element.
-    temporaryValue = array[currentIndex]
-    array[currentIndex] = array[randomIndex]
-    array[randomIndex] = temporaryValue
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
   }
 
-  return array
+  return array;
 }
 
-render(<App />, document.getElementById('root'))
+render(<App />, document.getElementById('root'));
 
 /* eslint no-restricted-globals: "off" */

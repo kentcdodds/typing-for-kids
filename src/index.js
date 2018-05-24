@@ -38,8 +38,8 @@ class App extends React.Component {
     if (this.state.inputValue === this.state.currentWord) {
       // ignore... We're animating
     } else if (this.state.currentWord.startsWith(fullValue)) {
-      this.speakWord(fullValue.slice(-1));
       this.setState({ inputValue: fullValue });
+      this.speakWord(fullValue.slice(-1));
     } else {
       this.nope();
     }

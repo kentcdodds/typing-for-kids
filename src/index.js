@@ -53,19 +53,21 @@ class App extends React.Component {
   advanceIfMatches = () => {
     if (this.state.inputValue.toLowerCase() === this.state.currentWord) {
       const { completed, todo, currentWord } = this.state;
-      this.speakWord(this.state.currentWord);
-      this.advanceWord({
-        completed: [...completed, currentWord],
-        currentWord: todo[0],
-        todo: todo.slice(1),
-        inputValue: ''
-      });
+      this.speakWord(this.state.currentWord).onend = () => {
+        this.advanceWord({
+          completed: [...completed, currentWord],
+          currentWord: todo[0],
+          todo: todo.slice(1),
+          inputValue: ''
+        });
+      };
     }
   };
   speakWord = word => {
     if ('speechSynthesis' in window) {
       const msg = new SpeechSynthesisUtterance(word);
       window.speechSynthesis.speak(msg);
+      return msg;
     }
   };
   advanceWord(stateToSet) {

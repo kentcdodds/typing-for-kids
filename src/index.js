@@ -1,5 +1,5 @@
 import React from 'react'
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 import 'animate.css'
 import Fireworks from './fireworks'
 import registerServiceWorker from './register-service-worker'
@@ -67,20 +67,20 @@ class App extends React.Component {
     if (this.state.inputValue === this.state.currentWord) {
       // ignore... We're animating
     } else if (this.state.currentWord.startsWith(fullValue)) {
-      this.setState({inputValue: fullValue})
+      this.setState({ inputValue: fullValue })
     } else {
       this.nope()
     }
   }
   nope() {
     this.handleAnimateNopeRest = () => {
-      this.setState({animateNope: false})
+      this.setState({ animateNope: false })
     }
-    this.setState({animateNope: true})
+    this.setState({ animateNope: true })
   }
   advanceIfMatches = () => {
     if (this.state.inputValue.toLowerCase() === this.state.currentWord) {
-      const {completed, todo, currentWord} = this.state
+      const { completed, todo, currentWord } = this.state
       this.advanceWord({
         completed: [...completed, currentWord],
         currentWord: todo[0],
@@ -91,7 +91,7 @@ class App extends React.Component {
   }
   advanceWord(stateToSet) {
     this.handleAnimateFinishedRest = () => {
-      this.setState({...stateToSet, animateFinished: false})
+      this.setState({ ...stateToSet, animateFinished: false })
       this.input && this.input.focus()
     }
     this.setState({
@@ -103,10 +103,10 @@ class App extends React.Component {
     this.input && this.input.focus()
   }
   render() {
-    const {currentWord, inputValue, animateFinished, animateNope} = this.state
+    const { currentWord, inputValue, animateFinished, animateNope } = this.state
     if (!currentWord) {
       return (
-        <div style={{textAlign: 'center'}}>
+        <div style={{ textAlign: 'center' }}>
           <h1>
             <span role="img" aria-label="tada">
               🎉
@@ -121,7 +121,7 @@ class App extends React.Component {
             <button
               autoFocus={!inCodeSandbox}
               onClick={this.reset}
-              style={{fontSize: 20}}
+              style={{ fontSize: 20 }}
             >
               <span role="img" aria-label="repeat">
                 🔁
@@ -134,7 +134,7 @@ class App extends React.Component {
       )
     }
     return (
-      <div style={{textAlign: 'center', fontSize: 30}}>
+      <div style={{ textAlign: 'center', fontSize: 30 }}>
         <h1>Typing for Kids</h1>
         <div>Let's get typing!</div>
         <div>Try typing the word:</div>
@@ -145,23 +145,22 @@ class App extends React.Component {
             marginRight: 'auto',
             marginBottom: 20,
             textAlign: 'left',
+            textTransform: 'uppercase',
           }}
         >
           <h2>
             <Animated
               onRest={this.handleAnimateNopeRest}
               animation={
-                animateNope ? (
-                  'headShake'
-                ) : animateFinished ? (
-                  getRandomOutAnimation()
-                ) : (
-                  ''
-                )
+                animateNope
+                  ? 'headShake'
+                  : animateFinished
+                    ? getRandomOutAnimation()
+                    : ''
               }
-              style={{marginLeft: 10}}
+              style={{ marginLeft: 10 }}
             >
-              <span style={{color: 'blue'}}>{inputValue}</span>
+              <span style={{ color: 'blue' }}>{inputValue}</span>
               {currentWord.slice(inputValue.length)}
             </Animated>
           </h2>
@@ -173,12 +172,12 @@ class App extends React.Component {
             }}
             onClick={() => this.input.focus()}
           >
-            <h2 style={{display: 'inline-block', margin: 0}}>
+            <h2 style={{ display: 'inline-block', margin: 0 }}>
               {animateFinished ? (
                 <Animated
                   onRest={this.handleAnimateFinishedRest}
                   animation={getRandomOutAnimation()}
-                  style={{display: 'inline-block'}}
+                  style={{ display: 'inline-block' }}
                 >
                   {inputValue}
                 </Animated>
@@ -205,7 +204,7 @@ class App extends React.Component {
             />
           </div>
         </div>
-        <button onClick={this.reset} style={{fontSize: 20}}>
+        <button onClick={this.reset} style={{ fontSize: 20 }}>
           <span role="img" aria-label="repeat">
             🔁
           </span>{' '}
@@ -221,7 +220,7 @@ class InputChar extends React.Component {
   render() {
     return (
       <Animated
-        style={{display: 'inline-block'}}
+        style={{ display: 'inline-block' }}
         animation={this.animation}
         {...this.props}
       />
@@ -300,7 +299,7 @@ class Animated extends React.Component {
     })
   }
   render() {
-    const {onRest, animation, ...rest} = this.props
+    const { onRest, animation, ...rest } = this.props
     return (
       <div
         className={`animated ${animation}`}

@@ -15,7 +15,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && now --static build -n typing-for-my-kid"
+    "deploy": "npm run build && now build -n typing-for-my-kid"
   },
   "browserslist": {
     "production": [

@@ -3,12 +3,12 @@
   "description": "A simple app I forked for my kid",
   "version": "0.0.51e",
   "dependencies": {
-    "animate.css": "3.5.2",
-    "react-dom": "16.2.0",
-    "react": "16.2.0"
+    "animate.css": "^3.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "react-scripts": "1.1.0"
+    "react-scripts": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

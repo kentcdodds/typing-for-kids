@@ -65,8 +65,12 @@ class App extends React.Component {
   };
   speakWord = word => {
     if ('speechSynthesis' in window) {
+      const synth = window.speechSynthesis;
       const msg = new SpeechSynthesisUtterance(word);
-      window.speechSynthesis.speak(msg);
+      if(synth.pending === true || synth.speaking === true){
+        synth.cancel();
+      }
+      synth.speak(msg);
       return msg;
     }
   };

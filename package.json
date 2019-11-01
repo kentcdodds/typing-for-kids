@@ -4,11 +4,11 @@
   "version": "0.0.51e",
   "dependencies": {
     "animate.css": "^3.7.2",
-    "react": "^16.10.1",
-    "react-dom": "^16.10.1"
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
   },
   "devDependencies": {
-    "react-scripts": "^3.1.2"
+    "react-scripts": "^3.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

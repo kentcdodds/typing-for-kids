@@ -4,7 +4,7 @@
   "version": "0.0.50",
   "dependencies": {
     "animate.css": "3.5.2",
-    "react-dom": "16.2.0",
+    "react-dom": "16.11.0",
     "react": "16.2.0"
   },
   "devDependencies": {
